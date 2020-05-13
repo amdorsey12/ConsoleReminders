@@ -15,22 +15,22 @@ namespace ConsoleReminders
 
         public async Task Remind(IEnumerable<Reminder> reminders)
         {
-            store.Store(reminders);
+            await Task.Run(() => store.Store(reminders));
         }
 
         public async Task Remind(params Reminder[] reminders)
         {
-            store.Store(reminders);
+            await Task.Run(() => store.Store(reminders));
         }
 
         public async Task Start() 
         {
             store.RemoveAll();
             IsRunning = true;
-            await Manage();
+            await Task.Run(() => Manage());
         }
 
-        public async Task Stop() 
+        public void Stop() 
         {
             IsRunning = false;
         }
@@ -39,7 +39,7 @@ namespace ConsoleReminders
         {
             while (IsRunning)
             {
-                var Reminders = store.Retrieve();
+                var Reminders = await Task.Run(() => store.Retrieve());
             
                 foreach (Reminder reminder in Reminders)
                 {
@@ -47,7 +47,7 @@ namespace ConsoleReminders
                     monitor.ReminderReady += Rm_ReminderReady;
                     monitors.Add(monitor);
                 }
-                Thread.Sleep(1000);
+                //Thread.Sleep(1000);
                 foreach (ReminderMonitor monitor in monitors)
                 {   
                     monitor.Monitor(DateTime.Now);
@@ -55,9 +55,9 @@ namespace ConsoleReminders
             }
         }
 
-        private void Rm_ReminderReady(object sender, ReminderMonitor.ReminderReadyEventArgs e)
+        private async void Rm_ReminderReady(object sender, ReminderMonitor.ReminderReadyEventArgs e)
         {
-            notifier.Notify(e.Id, e.Content);
+            await Task.Run(() => notifier.Notify(e.Id, e.Content));
         }
 
     }
