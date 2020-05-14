@@ -8,8 +8,9 @@ namespace ConsoleReminders
     public class ReminderStore 
     {
         
-        public void Store (params Reminder[] reminders)
+        public async Task Store (params Reminder[] reminders)
         {
+            await Task.Delay(500);
             using (var db = new LiteDatabase(@"Reminders.db"))
             {
                 var remindersCollection = db.GetCollection<Reminder>("reminders");
@@ -20,8 +21,9 @@ namespace ConsoleReminders
             }
         }
 
-        public void Store (IEnumerable<Reminder> reminders)
+        public async Task Store (IEnumerable<Reminder> reminders)
         {
+            await Task.Delay(500);
             using (var db = new LiteDatabase(@"Reminders.db"))
             {
                 var remindersCollection = db.GetCollection<Reminder>("reminders");
