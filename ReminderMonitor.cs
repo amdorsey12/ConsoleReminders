@@ -7,9 +7,14 @@ namespace ConsoleReminders
     public class ReminderMonitor 
     {
 
-        private ReminderStore store = new ReminderStore();
+        private ReminderStore store { get; set;}
         public bool IsRunning {get; set;}
         public event Action<Reminder> Triggered;
+
+        public ReminderMonitor(ReminderStore store)
+        {
+            this.store = store;
+        }
 
         public async void Monitor()
         {

@@ -8,9 +8,15 @@ namespace ConsoleReminders
     public class ReminderManager 
     {
 
-        private ReminderMonitor monitor = new ReminderMonitor();
+        private ReminderMonitor monitor { get; set; }
         private Notifier notifier = new Notifier();
-        private ReminderStore store = new ReminderStore();
+        private ReminderStore store { get; set; }
+
+        public ReminderManager()
+        {
+            store = new ReminderStore();
+            monitor = new ReminderMonitor(store);
+        }
 
         public void Remind(params Reminder[] reminders)
             => Remind((IEnumerable<Reminder>) reminders);
