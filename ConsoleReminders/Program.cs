@@ -14,6 +14,7 @@ namespace ConsoleReminders
                             new Reminder { Content = "Second", RemindTime = DateTime.Now.AddSeconds(20), IsDone = false },
                             new Reminder { Content = "Third", RemindTime = DateTime.Now.AddSeconds(30), IsDone = false }
                         );
+            await Task.Delay(30000);
             manager.Stop();
         }
     }

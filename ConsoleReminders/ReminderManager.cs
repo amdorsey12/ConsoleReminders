@@ -28,10 +28,10 @@ namespace ConsoleReminders
             }
             else
             {
+                await Manage();
                 store.RemoveAll();
                 monitor.IsRunning = true;
                 monitor.Monitor();
-                await Manage();
             }
         }
 
