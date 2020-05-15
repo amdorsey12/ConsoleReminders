@@ -7,13 +7,16 @@ namespace ConsoleReminders
 {
     public class ReminderStore 
     {
+        
         private LiteDatabase db { get; set; }
         private ILiteCollection<Reminder> remindersCollection { get; set; }
+        
         public ReminderStore()
         {
             db = new LiteDatabase(@"Reminders.db");
             remindersCollection = db.GetCollection<Reminder>("reminders");
         }
+
         public void Store (params Reminder[] reminders)
             => Store((IEnumerable<Reminder>) reminders);
         
