@@ -8,7 +8,7 @@ namespace ConsoleReminders
     public class ReminderStore 
     {
         
-        public async Task Store (params Reminder[] reminders)
+        public void Store (params Reminder[] reminders)
         {
             using (var db = new LiteDatabase(@"Reminders.db"))
             {
@@ -20,7 +20,7 @@ namespace ConsoleReminders
             }
         }
 
-        public async Task Store (IEnumerable<Reminder> reminders)
+        public void Store (IEnumerable<Reminder> reminders)
         {
             using (var db = new LiteDatabase(@"Reminders.db"))
             {

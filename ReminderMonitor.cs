@@ -7,7 +7,6 @@ namespace ConsoleReminders
     public class ReminderMonitor 
     {
         private ReminderStore store = new ReminderStore();
-        //private List<Reminder> reminders = new List<Reminder>();
         public bool IsRunning {get; set;}
 
         public event Action<Reminder> Triggered;

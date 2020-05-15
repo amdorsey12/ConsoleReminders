@@ -10,17 +10,17 @@ namespace ConsoleReminders
         private ReminderMonitor monitor = new ReminderMonitor();
         private Notifier notifier = new Notifier();
         private ReminderStore store = new ReminderStore();
-        public async Task Remind(IEnumerable<Reminder> reminders)
+        public void Remind(IEnumerable<Reminder> reminders)
         {
-            await store.Store(reminders);
+            store.Store(reminders);
         }
 
-        public async Task Remind(params Reminder[] reminders)
+        public void Remind(params Reminder[] reminders)
         {
-            await store.Store(reminders);
+            store.Store(reminders);
         }
 
-        public async void Start() 
+        public void Start() 
         {
             if (monitor.IsRunning == true)
             {
@@ -28,7 +28,7 @@ namespace ConsoleReminders
             }
             else
             {
-                await Manage();
+                Manage();
                 store.RemoveAll();
                 monitor.IsRunning = true;
                 monitor.Monitor();
@@ -40,12 +40,12 @@ namespace ConsoleReminders
             monitor.IsRunning = false;
         }
 
-        private async Task Manage()
+        private void Manage()
         {
             monitor.Triggered += ReminderReady;
         }
 
-        private async void ReminderReady(Reminder reminder)
+        private void ReminderReady(Reminder reminder)
         {
             notifier.Notify(reminder.Id.ToString(), reminder.Content);
         }
