@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -5,7 +6,7 @@ using LiteDB;
 
 namespace ConsoleReminders
 {
-    public class ReminderStore 
+    public class ReminderStore : IDisposable
     {
 
         private LiteDatabase db { get; set; }
