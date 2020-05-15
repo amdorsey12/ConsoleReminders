@@ -7,12 +7,9 @@ namespace ConsoleReminders
 {
     public class ReminderManager 
     {
-
-        private List<ReminderMonitor> monitors = new List<ReminderMonitor>();
+        private ReminderMonitor monitor = new ReminderMonitor();
         private Notifier notifier = new Notifier();
         private ReminderStore store = new ReminderStore();
-        private bool IsRunning {get; set;}
-
         public async Task Remind(IEnumerable<Reminder> reminders)
         {
             await store.Store(reminders);
@@ -23,47 +20,33 @@ namespace ConsoleReminders
             await store.Store(reminders);
         }
 
-        public async Task Start() 
+        public async void Start() 
         {
-            if (IsRunning == true)
+            if (monitor.IsRunning == true)
             {
                 Console.WriteLine("Program already started. Can only stop.");
             }
             else
             {
                 store.RemoveAll();
-                IsRunning = true;
+                monitor.IsRunning = true;
                 await Manage();
             }
         }
 
-        public async Task Stop() 
+        public void Stop() 
         {
-            IsRunning = false;
+            monitor.IsRunning = false;
         }
 
         private async Task Manage()
         {
-            while (IsRunning)
-            {
-                await Task.Delay(500);
-                var reminders = store.Retrieve();
-                foreach (Reminder reminder in reminders)
-                {
-                    ReminderMonitor monitor = new ReminderMonitor(reminder.RemindTime, reminder.Content, reminder.Id.ToString());
-                    monitor.ReminderReady += Rm_ReminderReady;
-                    monitors.Add(monitor);
-                }
-                foreach (ReminderMonitor monitor in monitors)
-                {   
-                    monitor.Monitor(DateTime.Now);
-                }
-            }
+            monitor.Triggered += ReminderReady;
         }
 
-        private void Rm_ReminderReady(object sender, ReminderMonitor.ReminderReadyEventArgs e)
+        private async void ReminderReady(Reminder reminder)
         {
-            notifier.Notify(e.Id, e.Content);
+            notifier.Notify(reminder.Id.ToString(), reminder.Content);
         }
 
     }

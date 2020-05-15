@@ -1,50 +1,36 @@
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ConsoleReminders 
 {
     public class ReminderMonitor 
     {
+        private ReminderStore store = new ReminderStore();
+        private List<Reminder> reminders = new List<Reminder>();
+        public bool IsRunning {get; set;}
 
-        private DateTime readyTime;
-        private string content;
-        private string id;
+        public event Action<Reminder> Triggered;
 
-        public ReminderMonitor(DateTime passedTime, string passedContent, string id)
+        public ReminderMonitor()
         {
-            readyTime = passedTime;
-            content = passedContent;
-            this.id = id;
+            reminders = store.Retrieve();
+            Monitor();
         }
 
-        public void Monitor(DateTime currentTime)
+        private async void Monitor()
         {
-            if (currentTime >= readyTime)
+            while (IsRunning)
             {
-                ReminderReadyEventArgs args = new ReminderReadyEventArgs();
-                args.ReadyTime = readyTime;
-                args.Content = content;
-                args.Id = id;
-                OnReminderReady(args);
+                await Task.Delay(500);
+                foreach (Reminder reminder in reminders)
+                {
+                    if (DateTime.Now == reminder.RemindTime)
+                    {
+                        Triggered?.Invoke(reminder);
+                    }
+                }
             }
         }
-
-        public event EventHandler<ReminderReadyEventArgs> ReminderReady;
-
-        protected virtual void OnReminderReady(ReminderReadyEventArgs e)
-        {
-            EventHandler<ReminderReadyEventArgs> handler = ReminderReady;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
-        }
-
-        public class ReminderReadyEventArgs : EventArgs
-        {
-            public DateTime ReadyTime { get; set; }
-            public string Content { get; set; }
-            public string Id {get; set;}
-        }
-        
     }
 }
