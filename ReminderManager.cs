@@ -38,6 +38,7 @@ namespace ConsoleReminders
         public void Stop() 
         {
             monitor.IsRunning = false;
+            store.Dispose();
         }
 
         private void Manage()

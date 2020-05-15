@@ -7,7 +7,7 @@ namespace ConsoleReminders
 {
     public class ReminderStore 
     {
-        
+
         private LiteDatabase db { get; set; }
         private ILiteCollection<Reminder> remindersCollection { get; set; }
         
@@ -36,6 +36,11 @@ namespace ConsoleReminders
         public void RemoveAll()
         {
             remindersCollection.DeleteAll();
+        }
+
+        public void Dispose()
+        {
+            db.Dispose();
         }
 
     }
