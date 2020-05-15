@@ -19,7 +19,7 @@ namespace ConsoleReminders
                 var reminders = store.Retrieve();
                 foreach (Reminder reminder in reminders)
                 {
-                    if (DateTime.Now == reminder.RemindTime)
+                    if (DateTime.Now >= reminder.RemindTime)
                     {
                         Triggered?.Invoke(reminder);
                     }
