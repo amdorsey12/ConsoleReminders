@@ -25,6 +25,7 @@ namespace ConsoleReminders
                     }
                 }
             }
+            store.Dispose();
         }
 
     }
