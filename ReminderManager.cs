@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleReminders 
 {
-    public class ReminderManager 
+    public class ReminderManager : IDisposable
     {
 
         private ReminderMonitor monitor { get; set; }
@@ -28,14 +28,13 @@ namespace ConsoleReminders
 
         public void Start() 
         {
-            if (monitor.IsRunning == true)
+            if (monitor.IsRunning)
             {
-                Console.WriteLine("Program already started. Can only stop.");
+                throw new Exception("Manager already started, you can only stop");
             }
             else
             {
-                Manage();
-                store.RemoveAll();
+                monitor.Triggered += ReminderReady;
                 monitor.IsRunning = true;
                 monitor.Monitor();
             }
@@ -44,17 +43,16 @@ namespace ConsoleReminders
         public void Stop() 
         {
             monitor.IsRunning = false;
-            store.Dispose();
-        }
-
-        private void Manage()
-        {
-            monitor.Triggered += ReminderReady;
         }
 
         private void ReminderReady(Reminder reminder)
         {
             notifier.Notify(reminder.Id.ToString(), reminder.Content);
+        }
+
+        public void Dispose()
+        {
+            store.Dispose();
         }
 
     }
