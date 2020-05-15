@@ -7,22 +7,17 @@ namespace ConsoleReminders
     public class ReminderMonitor 
     {
         private ReminderStore store = new ReminderStore();
-        private List<Reminder> reminders = new List<Reminder>();
+        //private List<Reminder> reminders = new List<Reminder>();
         public bool IsRunning {get; set;}
 
         public event Action<Reminder> Triggered;
 
-        public ReminderMonitor()
-        {
-            reminders = store.Retrieve();
-            Monitor();
-        }
-
-        private async void Monitor()
+        public async void Monitor()
         {
             while (IsRunning)
             {
                 await Task.Delay(500);
+                var reminders = store.Retrieve();
                 foreach (Reminder reminder in reminders)
                 {
                     if (DateTime.Now == reminder.RemindTime)

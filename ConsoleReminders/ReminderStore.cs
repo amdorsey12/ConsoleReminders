@@ -10,7 +10,6 @@ namespace ConsoleReminders
         
         public async Task Store (params Reminder[] reminders)
         {
-            await Task.Delay(500);
             using (var db = new LiteDatabase(@"Reminders.db"))
             {
                 var remindersCollection = db.GetCollection<Reminder>("reminders");
@@ -23,7 +22,6 @@ namespace ConsoleReminders
 
         public async Task Store (IEnumerable<Reminder> reminders)
         {
-            await Task.Delay(500);
             using (var db = new LiteDatabase(@"Reminders.db"))
             {
                 var remindersCollection = db.GetCollection<Reminder>("reminders");

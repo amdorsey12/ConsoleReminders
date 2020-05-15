@@ -30,6 +30,7 @@ namespace ConsoleReminders
             {
                 store.RemoveAll();
                 monitor.IsRunning = true;
+                monitor.Monitor();
                 await Manage();
             }
         }
