@@ -7,15 +7,15 @@ namespace ConsoleReminders
 {
     public class ReminderManager 
     {
+
         private ReminderMonitor monitor = new ReminderMonitor();
         private Notifier notifier = new Notifier();
         private ReminderStore store = new ReminderStore();
-        public void Remind(IEnumerable<Reminder> reminders)
-        {
-            store.Store(reminders);
-        }
 
         public void Remind(params Reminder[] reminders)
+            => Remind((IEnumerable<Reminder>) reminders);
+        
+        public void Remind(IEnumerable<Reminder> reminders)
         {
             store.Store(reminders);
         }

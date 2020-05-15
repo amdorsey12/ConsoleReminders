@@ -9,17 +9,8 @@ namespace ConsoleReminders
     {
         
         public void Store (params Reminder[] reminders)
-        {
-            using (var db = new LiteDatabase(@"Reminders.db"))
-            {
-                var remindersCollection = db.GetCollection<Reminder>("reminders");
-                foreach (Reminder reminder in reminders)
-                {
-                    remindersCollection.Insert(reminder);
-                }
-            }
-        }
-
+            => Store((IEnumerable<Reminder>) reminders);
+        
         public void Store (IEnumerable<Reminder> reminders)
         {
             using (var db = new LiteDatabase(@"Reminders.db"))
@@ -32,7 +23,7 @@ namespace ConsoleReminders
             }
         }
 
-        public List<Reminder> Retrieve()
+        public List<Reminder> Get()
         {
             using (var db = new LiteDatabase(@"Reminders.db"))
             {
