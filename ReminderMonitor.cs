@@ -6,11 +6,11 @@ namespace ConsoleReminders
 {
     public class ReminderMonitor 
     {
-        private ReminderStore Store { get; set;}
+        private LiteDbStore Store { get; set;}
         public bool IsRunning {get; set;}
         public event Action<Reminder> Triggered;
 
-        public ReminderMonitor(ReminderStore store)
+        public ReminderMonitor(LiteDbStore store)
             => this.Store = store;
         
         public async void Monitor()

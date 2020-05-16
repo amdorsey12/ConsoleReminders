@@ -8,12 +8,12 @@ namespace ConsoleReminders
     public class ReminderManager : IDisposable
     {
         private ReminderMonitor Monitor { get; set; }
-        private Notifier Notifier = new Notifier();
-        private ReminderStore Store { get; set; }
+        private ConsoleNotifier Notifier = new ConsoleNotifier();
+        private LiteDbStore Store { get; set; }
 
         public ReminderManager()
         {
-            Store = new ReminderStore();
+            Store = new LiteDbStore();
             Monitor = new ReminderMonitor(Store);
         }
 
@@ -41,7 +41,10 @@ namespace ConsoleReminders
             => Monitor.IsRunning = false;
         
         private void ReminderReady(Reminder reminder)
-            => Notifier.Notify(reminder.Id.ToString(), reminder.Content);
+        {
+            Notifier.Notify(reminder);
+            Store.MarkDone(reminder);
+        }
 
         public void Dispose()
             => Store.Dispose();
