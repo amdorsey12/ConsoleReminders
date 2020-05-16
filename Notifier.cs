@@ -7,17 +7,15 @@ namespace ConsoleReminders
 {
     public class Notifier
     {
-
-        private List<string> notifications = new List<string>();
+        private List<string> Notifications = new List<string>();
 
         public void Notify(string id, string content)
         {
-            if (!notifications.Contains(id))
+            if (!Notifications.Contains(id))
             {
                 Console.WriteLine(content);
-                notifications.Add(id);
+                Notifications.Add(id);
             }
         }
-
     }
 }

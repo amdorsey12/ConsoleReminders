@@ -8,14 +8,13 @@ namespace ConsoleReminders
 {
     public class ReminderStore : IDisposable
     {
-
-        private LiteDatabase db { get; set; }
-        private ILiteCollection<Reminder> remindersCollection { get; set; }
+        private LiteDatabase Db { get; set; }
+        private ILiteCollection<Reminder> RemindersCollection { get; set; }
         
         public ReminderStore()
         {
-            db = new LiteDatabase(@"Reminders.db");
-            remindersCollection = db.GetCollection<Reminder>("reminders");
+            Db = new LiteDatabase(@"Reminders.db");
+            RemindersCollection = Db.GetCollection<Reminder>("reminders");
         }
 
         public void Store (params Reminder[] reminders)
@@ -25,24 +24,19 @@ namespace ConsoleReminders
         {
             foreach (Reminder reminder in reminders)
             {
-                remindersCollection.Insert(reminder);
+                RemindersCollection.Insert(reminder);
             }
         }
 
         public List<Reminder> Get()
         {
-            return remindersCollection.FindAll().ToList();
+            return RemindersCollection.FindAll().ToList();
         }
         
         public void RemoveAll()
-        {
-            remindersCollection.DeleteAll();
-        }
-
+            => RemindersCollection.DeleteAll();
+        
         public void Dispose()
-        {
-            db.Dispose();
-        }
-
+            => Db.Dispose();
     }
 }

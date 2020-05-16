@@ -8,6 +8,5 @@ namespace ConsoleReminders
         public string Content {get;set;}
         public DateTime RemindTime {get;set;}
         public bool IsDone {get; set;}
-
     }
 }

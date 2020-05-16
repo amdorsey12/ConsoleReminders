@@ -7,53 +7,43 @@ namespace ConsoleReminders
 {
     public class ReminderManager : IDisposable
     {
-
-        private ReminderMonitor monitor { get; set; }
-        private Notifier notifier = new Notifier();
-        private ReminderStore store { get; set; }
+        private ReminderMonitor Monitor { get; set; }
+        private Notifier Notifier = new Notifier();
+        private ReminderStore Store { get; set; }
 
         public ReminderManager()
         {
-            store = new ReminderStore();
-            monitor = new ReminderMonitor(store);
+            Store = new ReminderStore();
+            Monitor = new ReminderMonitor(Store);
         }
 
         public void Remind(params Reminder[] reminders)
             => Remind((IEnumerable<Reminder>) reminders);
         
         public void Remind(IEnumerable<Reminder> reminders)
-        {
-            store.Store(reminders);
-        }
-
+            => Store.Store(reminders);
+        
         public void Start() 
         {
-            if (monitor.IsRunning)
+            if (Monitor.IsRunning)
             {
-                throw new Exception("Manager already started, you can only stop");
+                throw new InvalidOperationException();
             }
             else
             {
-                monitor.Triggered += ReminderReady;
-                monitor.IsRunning = true;
-                monitor.Monitor();
+                Monitor.Triggered += ReminderReady;
+                Monitor.IsRunning = true;
+                Monitor.Monitor();
             }
         }
 
         public void Stop() 
-        {
-            monitor.IsRunning = false;
-        }
-
+            => Monitor.IsRunning = false;
+        
         private void ReminderReady(Reminder reminder)
-        {
-            notifier.Notify(reminder.Id.ToString(), reminder.Content);
-        }
+            => Notifier.Notify(reminder.Id.ToString(), reminder.Content);
 
         public void Dispose()
-        {
-            store.Dispose();
-        }
-
+            => Store.Dispose();
     }
 }

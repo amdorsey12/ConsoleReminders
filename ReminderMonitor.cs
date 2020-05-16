@@ -6,22 +6,19 @@ namespace ConsoleReminders
 {
     public class ReminderMonitor 
     {
-
-        private ReminderStore store { get; set;}
+        private ReminderStore Store { get; set;}
         public bool IsRunning {get; set;}
         public event Action<Reminder> Triggered;
 
         public ReminderMonitor(ReminderStore store)
-        {
-            this.store = store;
-        }
-
+            => this.Store = store;
+        
         public async void Monitor()
         {
             while (IsRunning)
             {
                 await Task.Delay(500);
-                var reminders = store.Get();
+                var reminders = Store.Get();
                 foreach (Reminder reminder in reminders)
                 {
                     if (DateTime.Now >= reminder.RemindTime)
@@ -30,8 +27,7 @@ namespace ConsoleReminders
                     }
                 }
             }
-            store.Dispose();
+            Store.Dispose();
         }
-
     }
 }
