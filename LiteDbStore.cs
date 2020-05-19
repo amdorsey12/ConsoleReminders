@@ -4,25 +4,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using LiteDB;
 
-namespace ConsoleReminders
+namespace Amdorsey12.Reminders
 {
     public class LiteDbStore : IReminderStore
     {
         private LiteDatabase Db { get; set; }
-        private ILiteCollection<Reminder> RemindersCollection { get; set; }
+        private ILiteCollection<IReminder> RemindersCollection { get; set; }
         
         public LiteDbStore()
         {
             Db = new LiteDatabase(@"Reminders.db");
-            RemindersCollection = Db.GetCollection<Reminder>("reminders");
+            RemindersCollection = Db.GetCollection<IReminder>("reminders");
         }
 
-        public void Store (params Reminder[] reminders)
-            => Store((IEnumerable<Reminder>) reminders);
+        public void Store (params IReminder[] reminders)
+            => Store((IEnumerable<IReminder>) reminders);
         
-        public void Store (IEnumerable<Reminder> reminders)
+        public void Store (IEnumerable<IReminder> reminders)
         {
-            foreach (Reminder reminder in reminders)
+            foreach (IReminder reminder in reminders)
             {
                 RemindersCollection.Insert(reminder);
             }
@@ -31,15 +31,15 @@ namespace ConsoleReminders
         public void RemoveAll()
             => RemindersCollection.DeleteAll();
             
-        public IEnumerable<Reminder> Get()
+        public IEnumerable<IReminder> Get()
         {
-            return (IEnumerable<Reminder>) RemindersCollection.Find(x => x.IsDone != true).ToList();
+            return (IEnumerable<IReminder>) RemindersCollection.Find(x => x.IsDone != true).ToList();
         }
 
-        public void Delete(params Reminder[] Reminders)
-            => Delete((IEnumerable<Reminder>) Reminders);
+        public void Delete(params IReminder[] Reminders)
+            => Delete((IEnumerable<IReminder>) Reminders);
 
-        public void Delete(IEnumerable<Reminder> Reminders)
+        public void Delete(IEnumerable<IReminder> Reminders)
         {
             foreach (Reminder reminder in Reminders)
             {
@@ -47,12 +47,12 @@ namespace ConsoleReminders
             }
         }
 
-        public void MarkDone(params Reminder[] Reminders)
-            => MarkDone((IEnumerable<Reminder>) Reminders);
+        public void MarkDone(params IReminder[] Reminders)
+            => MarkDone((IEnumerable<IReminder>) Reminders);
 
-        public void MarkDone(IEnumerable<Reminder> Reminders)
+        public void MarkDone(IEnumerable<IReminder> Reminders)
         {
-            foreach (Reminder reminder in Reminders)
+            foreach (IReminder reminder in Reminders)
             {
                 var reminderOut = RemindersCollection.Find(x => x.Id == reminder.Id).FirstOrDefault();
                 reminderOut.IsDone = true;

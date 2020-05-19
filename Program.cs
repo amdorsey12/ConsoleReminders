@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace ConsoleReminders
+namespace Amdorsey12.Reminders
 {
     class Program
     {

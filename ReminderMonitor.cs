@@ -2,17 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ConsoleReminders 
+namespace Amdorsey12.Reminders 
 {
-    public class ReminderMonitor 
+    public class ReminderMonitor : IReminderMonitor
     {
-        private LiteDbStore Store { get; set;}
+        private IReminderStore Store { get; set;}
         public bool IsRunning {get; set;}
-        public event Action<Reminder> Triggered;
+        IReminderStore IReminderMonitor.Store { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public ReminderMonitor(LiteDbStore store)
+        public event Action<IReminder> Triggered;
+
+        public ReminderMonitor(IReminderStore store)
             => this.Store = store;
-        
+
         public async void Monitor()
         {
             while (IsRunning)

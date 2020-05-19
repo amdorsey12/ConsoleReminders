@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ConsoleReminders 
+namespace Amdorsey12.Reminders 
 {
-    public class ReminderManager : IDisposable
-    {
-        private ReminderMonitor Monitor { get; set; }
-        private ConsoleNotifier Notifier = new ConsoleNotifier();
-        private LiteDbStore Store { get; set; }
+    public class ReminderManager : IReminderManager
+        private IReminderMonitor Monitor { get; set; }
+        private INotifier Notifier = new ConsoleNotifier();
+        private IReminderStore Store { get; set; }
 
         public ReminderManager()
         {
@@ -17,10 +16,10 @@ namespace ConsoleReminders
             Monitor = new ReminderMonitor(Store);
         }
 
-        public void Remind(params Reminder[] reminders)
-            => Remind((IEnumerable<Reminder>) reminders);
+        public void Remind(params IReminder[] reminders)
+            => Remind((IEnumerable<IReminder>) reminders);
         
-        public void Remind(IEnumerable<Reminder> reminders)
+        public void Remind(IEnumerable<IReminder> reminders)
             => Store.Store(reminders);
         
         public void Start() 
@@ -40,9 +39,9 @@ namespace ConsoleReminders
         public void Stop() 
             => Monitor.IsRunning = false;
         
-        private void ReminderReady(Reminder reminder)
+        private void ReminderReady(IReminder reminder)
         {
-            Notifier.Notify(reminder);
+            ((INotifier)Notifier).Notify(reminder);
             Store.MarkDone(reminder);
         }
 

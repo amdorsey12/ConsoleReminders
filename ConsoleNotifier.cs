@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ConsoleReminders 
+namespace Amdorsey12.Reminders 
 {
     public class ConsoleNotifier : INotifier
     {
-        public void Notify(Reminder reminder)
+        void INotifier.Notify(IReminder reminder)
             => Console.WriteLine(reminder.Content);
         
     }

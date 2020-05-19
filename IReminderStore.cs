@@ -1,16 +1,16 @@
 using System;
 using System.Collections.Generic;
 
-namespace ConsoleReminders
+namespace Amdorsey12.Reminders
 {
     public interface IReminderStore : IDisposable
     {
-        public IEnumerable<Reminder> Get();
-        public void Delete(params Reminder[] Reminders);
-        public void Delete(IEnumerable<Reminder> Reminders);
-        public void Store(params Reminder[] Reminders);
-        public void Store(IEnumerable<Reminder> Reminders);
-        public void MarkDone(params Reminder[] Reminders);
-        public void MarkDone(IEnumerable<Reminder> Reminders);
+        IEnumerable<IReminder> Get();
+        public void Delete(params IReminder[] Reminders);
+        public void Delete(IEnumerable<IReminder> Reminders);
+        public void Store(params IReminder[] Reminders);
+        public void Store(IEnumerable<IReminder> Reminders);
+        public void MarkDone(params IReminder[] Reminders);
+        public void MarkDone(IEnumerable<IReminder> Reminders);
     }
 }

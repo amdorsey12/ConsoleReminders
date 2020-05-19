@@ -1,12 +1,13 @@
 using System;
-
-namespace ConsoleReminders
+using LiteDB;
+namespace Amdorsey12.Reminders
 {
-    public class Reminder 
+    public class Reminder : IReminder
     {
-        public LiteDB.ObjectId Id {get; set;}
+        [LiteDB.BsonId]
+        public string Id {get; set;}
         public string Content {get;set;}
-        public DateTime RemindTime {get;set;}
         public bool IsDone {get; set;}
+        public DateTime RemindTime {get;set;}
     }
 }
