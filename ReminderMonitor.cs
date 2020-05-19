@@ -8,7 +8,6 @@ namespace Amdorsey12.Reminders
     {
         private IReminderStore Store { get; set;}
         public bool IsRunning {get; set;}
-        IReminderStore IReminderMonitor.Store { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public event Action<IReminder> Triggered;
 
