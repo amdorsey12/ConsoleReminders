@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 namespace Amdorsey12.Reminders 
 {
     public class ReminderManager : IReminderManager
+    {
         private IReminderMonitor Monitor { get; set; }
         private INotifier Notifier = new ConsoleNotifier();
         private IReminderStore Store { get; set; }
