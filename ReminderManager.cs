@@ -41,7 +41,7 @@ namespace Amdorsey12.Reminders
         
         private void ReminderReady(IReminder reminder)
         {
-            ((INotifier)Notifier).Notify(reminder);
+            Notifier.Notify(reminder);
             Store.MarkDone(reminder);
         }
 
