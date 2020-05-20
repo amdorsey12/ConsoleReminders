@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Amdorsey12.Reminders
+namespace Dorsey.Reminders
 {
-    class Program
+    public class Program
     {
-        static async Task Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            using (var manager = new ReminderManager())
+            using (var manager = new ReminderManager(new ConsoleNotifier(), new LiteDbStore()))
             {
                 manager.Start();
                 manager.Remind( new Reminder { Content = "First", RemindTime = DateTime.Now.AddSeconds(10), IsDone = false },

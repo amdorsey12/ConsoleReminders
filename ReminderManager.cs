@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Amdorsey12.Reminders 
+namespace Dorsey.Reminders 
 {
     public class ReminderManager : IReminderManager
     {
         private IReminderMonitor Monitor { get; set; }
-        private INotifier Notifier = new ConsoleNotifier();
+        private INotifier Notifier { get; set; }
         private IReminderStore Store { get; set; }
 
-        public ReminderManager()
+        public ReminderManager(INotifier notifier, IReminderStore store)
         {
-            Store = new LiteDbStore();
+            Store = store;
+            Notifier = notifier;
             Monitor = new ReminderMonitor(Store);
         }
 

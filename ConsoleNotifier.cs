@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Amdorsey12.Reminders 
+namespace Dorsey.Reminders 
 {
     public class ConsoleNotifier : INotifier
     {

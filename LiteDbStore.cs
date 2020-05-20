@@ -4,17 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using LiteDB;
 
-namespace Amdorsey12.Reminders
+namespace Dorsey.Reminders
 {
     public class LiteDbStore : IReminderStore
     {
-        private LiteDatabase Db { get; set; }
-        private ILiteCollection<IReminder> RemindersCollection { get; set; }
+        private LiteDatabase Database { get; set; }
+        private ILiteCollection<IReminder> Collection { get; set; }
         
         public LiteDbStore()
         {
-            Db = new LiteDatabase(@"Reminders.db");
-            RemindersCollection = Db.GetCollection<IReminder>("reminders");
+            Database = new LiteDatabase(@"Reminders.db");
+            Collection = Database.GetCollection<IReminder>("reminders");
         }
 
         public void Store (params IReminder[] reminders)
@@ -24,16 +24,16 @@ namespace Amdorsey12.Reminders
         {
             foreach (IReminder reminder in reminders)
             {
-                RemindersCollection.Insert(reminder);
+                Collection.Insert(reminder);
             }
         }
         
         public void RemoveAll()
-            => RemindersCollection.DeleteAll();
+            => Collection.DeleteAll();
             
         public IEnumerable<IReminder> Get()
         {
-            return (IEnumerable<IReminder>) RemindersCollection.Find(x => x.IsDone != true).ToList();
+            return (IEnumerable<IReminder>) Collection.Find(x => x.IsDone != true).ToList();
         }
 
         public void Delete(params IReminder[] Reminders)
@@ -43,7 +43,7 @@ namespace Amdorsey12.Reminders
         {
             foreach (Reminder reminder in Reminders)
             {
-                RemindersCollection.Delete(reminder.Id);
+                Collection.Delete(reminder.Id);
             }
         }
 
@@ -54,12 +54,12 @@ namespace Amdorsey12.Reminders
         {
             foreach (IReminder reminder in Reminders)
             {
-                var reminderOut = RemindersCollection.Find(x => x.Id == reminder.Id).FirstOrDefault();
+                var reminderOut = Collection.Find(x => x.Id == reminder.Id).FirstOrDefault();
                 reminderOut.IsDone = true;
-                RemindersCollection.Insert(reminderOut);
+                Collection.Insert(reminderOut);
             }
         }
         public void Dispose()
-            => Db.Dispose();
+            => Database.Dispose();
     }
 }

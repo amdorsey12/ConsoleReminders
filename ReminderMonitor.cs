@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Amdorsey12.Reminders 
+namespace Dorsey.Reminders 
 {
     public class ReminderMonitor : IReminderMonitor
     {
-        private IReminderStore Store { get; set;}
-        public bool IsRunning {get; set;}
+        private IReminderStore Store { get; set; }
+        public bool IsRunning { get; set; }
 
         public event Action<IReminder> Triggered;
 

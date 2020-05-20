@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace Amdorsey12.Reminders
+namespace Dorsey.Reminders
 {
-    public interface IReminderStore : IDisposable
+    interface IReminderStore : IDisposable
     {
         IEnumerable<IReminder> Get();
         public void Delete(params IReminder[] Reminders);

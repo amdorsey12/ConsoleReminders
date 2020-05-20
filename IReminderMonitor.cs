@@ -1,6 +1,6 @@
 using System;
 
-namespace Amdorsey12.Reminders
+namespace Dorsey.Reminders
 {
     public interface IReminderMonitor
     {

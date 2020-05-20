@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Amdorsey12.Reminders;
+using Dorsey.Reminders;
 
-namespace Amdorsey12
+namespace Dorsey
 {
     interface IReminderManager : IDisposable
     {
