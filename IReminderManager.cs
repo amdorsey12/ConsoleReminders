@@ -4,11 +4,11 @@ using Dorsey.Reminders;
 
 namespace Dorsey
 {
-    interface IReminderManager : IDisposable
+    public interface IReminderManager : IDisposable
     {
-        public void Remind(params IReminder[] Reminders);
-        public void Remind(IEnumerable<IReminder> Reminders);
-        public void Start();
-        public void Stop();
+        void Remind(params IReminder[] Reminders);
+        void Remind(IEnumerable<IReminder> Reminders);
+        void Start();
+        void Stop();
     }
 }

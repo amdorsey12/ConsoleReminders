@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace Dorsey.Reminders
 {
-    interface IReminderStore : IDisposable
+    public interface IReminderStore : IDisposable
     {
         IEnumerable<IReminder> Get();
-        public void Delete(params IReminder[] Reminders);
-        public void Delete(IEnumerable<IReminder> Reminders);
-        public void Store(params IReminder[] Reminders);
-        public void Store(IEnumerable<IReminder> Reminders);
-        public void MarkDone(params IReminder[] Reminders);
-        public void MarkDone(IEnumerable<IReminder> Reminders);
+        void Delete(params IReminder[] Reminders);
+        void Delete(IEnumerable<IReminder> Reminders);
+        void Store(params IReminder[] Reminders);
+        void Store(IEnumerable<IReminder> Reminders);
+        void MarkDone(params IReminder[] Reminders);
+        void MarkDone(IEnumerable<IReminder> Reminders);
     }
 }
