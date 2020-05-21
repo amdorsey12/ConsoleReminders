@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Dorsey.Reminders;
 
-namespace Dorsey
+namespace Dorsey.Reminders
 {
     public interface IReminderManager : IDisposable
     {

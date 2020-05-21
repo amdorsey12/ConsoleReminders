@@ -7,7 +7,7 @@ namespace Dorsey.Reminders
 {
     public class ConsoleNotifier : INotifier
     {
-        void INotifier.Notify(IReminder reminder)
+        public void Notify(IReminder reminder)
             => Console.WriteLine(reminder.Content);
         
     }

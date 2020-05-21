@@ -28,7 +28,6 @@ namespace Dorsey.Reminders
                     }
                 }
             }
-            Store.Dispose();
         }
     }
 }

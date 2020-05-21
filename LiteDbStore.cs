@@ -17,10 +17,10 @@ namespace Dorsey.Reminders
             Collection = Database.GetCollection<IReminder>("reminders");
         }
 
-        public void Store (params IReminder[] reminders)
+        public void Store(params IReminder[] reminders)
             => Store((IEnumerable<IReminder>) reminders);
-        
-        public void Store (IEnumerable<IReminder> reminders)
+
+        public void Store(IEnumerable<IReminder> reminders)
         {
             foreach (IReminder reminder in reminders)
             {
@@ -59,6 +59,7 @@ namespace Dorsey.Reminders
                 Collection.Insert(reminderOut);
             }
         }
+
         public void Dispose()
             => Database.Dispose();
     }
