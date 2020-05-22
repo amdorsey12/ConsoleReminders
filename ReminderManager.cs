@@ -17,9 +17,6 @@ namespace Dorsey.Reminders
             Notifier = notifier;
             Monitor = new ReminderMonitor(Store);
         }
-
-        public void Remind(params IReminder[] reminders)
-            => Remind((IEnumerable<IReminder>) reminders);
         
         public void Remind(IEnumerable<IReminder> reminders)
             => Store.Store(reminders);
