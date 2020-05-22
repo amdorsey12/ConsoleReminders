@@ -11,6 +11,7 @@ Usage:
 -Start the manager, pass it reminders, and stop it according to your desired program logic.
 
 Sample program
+```cs
 //Starts and then writes a reminder every 10 seconds to the console. Terminates after 35 seconds.
 public class Program
     {
@@ -28,3 +29,4 @@ public class Program
             }
         }
     }
+```
