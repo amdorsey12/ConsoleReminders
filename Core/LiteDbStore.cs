@@ -9,17 +9,17 @@ namespace Dorsey.Reminders
     public class LiteDbStore : IReminderStore
     {
         private LiteDatabase Database { get; set; }
-        private ILiteCollection<IReminder> Collection { get; set; }
+        private ILiteCollection<Reminder> Collection { get; set; }
         
         public LiteDbStore()
         {
             Database = new LiteDatabase(@"Reminders.db");
-            Collection = Database.GetCollection<IReminder>("reminders");
+            Collection = Database.GetCollection<Reminder>("reminders");
         }
 
         public void Store(IEnumerable<IReminder> reminders)
         {
-            foreach (IReminder reminder in reminders)
+            foreach (Reminder reminder in reminders)
             {
                 Collection.Insert(reminder);
             }
@@ -41,7 +41,7 @@ namespace Dorsey.Reminders
 
         public void MarkDone(IEnumerable<IReminder> Reminders)
         {
-            foreach (IReminder reminder in Reminders)
+            foreach (Reminder reminder in Reminders)
             {
                 var reminderOut = Collection.Find(x => x.Id == reminder.Id).FirstOrDefault();
                 reminderOut.IsDone = true;
