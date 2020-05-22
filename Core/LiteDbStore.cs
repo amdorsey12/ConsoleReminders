@@ -45,7 +45,7 @@ namespace Dorsey.Reminders
             {
                 var reminderOut = Collection.Find(x => x.Id == reminder.Id).FirstOrDefault();
                 reminderOut.IsDone = true;
-                Collection.Insert(reminderOut);
+                Collection.Update(reminderOut);
             }
         }
 
