@@ -13,20 +13,16 @@ Usage:
 Sample program
 ```cs
 //Starts and then writes a reminder every 10 seconds to the console. Terminates after 35 seconds.
-public class Program
-    {
-        public static async Task Main(string[] args)
+
+        using (var manager = new ReminderManager(new ConsoleNotifier(), new LiteDbStore()))
         {
-            using (var manager = new ReminderManager(new ConsoleNotifier(), new LiteDbStore()))
-            {
-                manager.Start();
-                manager.Remind( new Reminder { Content = "First", RemindTime = DateTime.Now.AddSeconds(10), IsDone = false },
-                                new Reminder { Content = "Second", RemindTime = DateTime.Now.AddSeconds(20), IsDone = false },
-                                new Reminder { Content = "Third", RemindTime = DateTime.Now.AddSeconds(30), IsDone = false }
-                            );
-                await Task.Delay(35000);
-                manager.Stop();
-            }
+            manager.Start();
+            manager.Remind( new Reminder { Content = "First", RemindTime = DateTime.Now.AddSeconds(10), IsDone = false },
+                            new Reminder { Content = "Second", RemindTime = DateTime.Now.AddSeconds(20), IsDone = false },
+                            new Reminder { Content = "Third", RemindTime = DateTime.Now.AddSeconds(30), IsDone = false }
+                        );
+            await Task.Delay(35000);
+            manager.Stop();
         }
-    }
+    
 ```
