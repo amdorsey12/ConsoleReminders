@@ -3,3 +3,4 @@ bin/
 obj/
 
 Reminders.db
+Reminders-log.db
