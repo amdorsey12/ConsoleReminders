@@ -6,7 +6,7 @@ namespace Dorsey.Reminders
 {
     public interface IReminderManager : IDisposable
     {
-        void Remind(IEnumerable<IReminder> Reminders);
+        void Remind(IEnumerable<IReminder> reminders);
         void Start();
         void Stop();
     }
